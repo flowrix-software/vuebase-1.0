@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "isolatedModules":true,
+    "target": "ESNext", // or es2020, es2022
+    "module": "ESNext", // or es2020, es2022
+    "lib": ["ESNext", "DOM"],
+    "strict": true,
+    "jsx": "preserve",
+    "moduleResolution": "Node",
+    "types": ["vite/client"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "jsxImportSource":"vue",
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": false, // Allows JavaScript files
+    "checkJs": false, // Set to true if you want TypeScript to check JavaScript files
+    "declaration": true, // Generates declaration files from JS files (if needed)
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      // "@axios/*": ["src/axios/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["node_modules"]
+}

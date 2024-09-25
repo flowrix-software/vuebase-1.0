@@ -1,0 +1,116 @@
+.header-links {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none none;
+  color: #333;
+  display: flex;
+  gap: 30px;
+
+  a,span {
+    line-height: 2rem;
+    align-items: center;
+    color: #333;
+    display: flex;
+    text-decoration: none;
+    transition: color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    &:before {
+      font-size: 2rem;
+      color: #77808f;
+      display: inline-block;
+      height: 20px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+    &:hover {
+      color: #77808f;
+    }
+  }
+}
+
+.orange-btn {
+  margin-left: 10px;
+  background-image: none;
+  background: var(--iseek-secondary);
+  border: none;
+  color: var(--iseek-white);
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.8rem;
+  box-sizing: border-box;
+  vertical-align: middle;
+  font-size: 1.6rem;
+  display: flex;
+  padding: 9px 15px 8px;
+  align-items: center;
+  border-radius: 3px;
+  justify-content: center;
+  transition: background 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  .icon {
+    font-size: 0.9rem;
+    line-height: 0.9rem;
+    margin-left: 10px;
+    opacity: 0.5;
+  }
+  &:hover {
+    color: var(--iseek-white);
+    background: #f17a1c;
+    border: none;
+  }
+}
+
+.nav-item {
+  padding: 0.5rem 0xp;
+}
+
+.dropdown-hover:hover > .dropdown-menu {
+  display: inline-block;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.dropdown-hover > .dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.seconday-btn {
+  background-image: none;
+  background: #f68c38;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  margin: 0;
+  padding: 8px 15px 6px;
+  font-size: 2rem;
+  line-height: 1.8rem;
+  box-sizing: border-box;
+  vertical-align: middle;
+  font-size: 1.4rem;
+  background: #f5f7fb;
+  color: #2d7dd7;
+  transition: background 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  .icon {
+    font-size: 2rem;
+    line-height: 2rem;
+    margin-right: 10px;
+  }
+  &:hover {
+    background: rgba(54, 110, 172, 0.15);
+    color: #2d7dd7;
+  }
+}
+
+@media screen and (max-width:600px) {
+    .header-links{
+        gap: 0;
+    }
+}
