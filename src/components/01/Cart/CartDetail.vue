@@ -1,106 +1,24 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { useCartStore } from '@/stores/Cart'
-type CartItem = {
-  name: string;
-  // other properties...
-};
-const route = useRoute()
-const fetchCart = useCartStore()
 
-const cartData = computed(() => {
-  const cartItems = fetchCart.cart.items
-  return cartItems
-})
-
-const removeFromCart = (productId: string,product: Object) => {
-  fetchCart.removeFromCart(productId)
-  window.gtag = window.gtag || []
-    window.gtag('event', 'remove_from_cart', {
-        'items': [
-        {
-            'item_id': product?.id,
-            'item_name': product?.name,
-            'item_category': product?.category,
-            'quantity': 1, // or the quantity added
-            'price': product?.pricefloat,
-        }
-        ],
-        ...product?.options.values
-    });
-}
-
-const isObjectEmpty = computed(() => {
-  if (fetchCart.cart.items !== undefined) {
-
-    const itemNames = Object.values<CartItem>(fetchCart.cart.items).map((item) => item.name);
-    const checkForMeasure = itemNames.includes('Check Measure')
-
-    if (checkForMeasure && itemNames.length === 1) {
-      return false // Only 'Check Measure' is present
-    }
-
-    return itemNames.length > 0
-  } else {
-    return false
-  }
-});
-
-const dvidedsummary = ((sammarydata: any) => {
-  let sumary = []
-  let firstMidpoint = Math.ceil(sammarydata.length / 3);
-  let secondMidpoint = Math.ceil((sammarydata.length * 2) / 3);
-
-  sumary[0] = sammarydata.slice(0, firstMidpoint);
-  sumary[1] = sammarydata.slice(firstMidpoint, secondMidpoint);
-  sumary[2] = sammarydata.slice(secondMidpoint);
-  // sumary.push({firstHalf})
-  // sumary.push({secondHalf})
-  return sumary
-});
-
-const toggleClass = (element: Element, className: string) => {
-  if (element.classList.contains(className)) {
-    element.classList.remove(className)
-  } else {
-    element.classList.add(className)
-  }
-}
-
-const openBundle = (id: string) => {
-  const bundle = document.querySelector(`.bundle_${id}`)
-  const elems = document.querySelector(`.open_bundle${id}`)?.querySelector('.fas')
-
-  if (bundle && elems) {
-    toggleClass(elems, 'fa-angle-down')
-    toggleClass(elems, 'fa-angle-up')
-    toggleClass(bundle, 'd-none')
-  }
-}
-
-const openAttributes = (id: string) => {
-  const attributes = document.querySelector(`.attributes_${id}`)
-  const elems = document.querySelector(`.open_attributes${id}`)?.querySelector('.fas')
-
-  if (attributes && elems) {
-    toggleClass(elems, 'fa-angle-down')
-    toggleClass(elems, 'fa-angle-up')
-    toggleClass(attributes, 'd-none')
-  }
-}
-
-</script>
+<script lang="ts" src="@/template/Cart/CartDetail" />
 <template>
-  <!-- <pre>
-		{{ cartData }}
-	</pre> -->
   <div>
+    <!--
+    Variable to be used here:
 
+      route,
+      cartData,
+      removeFromCart,
+      isObjectEmpty,
+      dividedSummary,
+      openBundle,
+      openAttributes, 
+      updateQuantity,
+      
+      -->
     <div class="col-md-12 item-row bg-white p-4 position-relative mb-5" v-for="(product, productId) in cartData"
       :key="productId">
 
-      <a @click="removeFromCart(productId,product)" class="icon-cross-02 product-remove-icon"></a>
+      <a @click="removeFromCart(productId, product)" class="icon-cross-02 product-remove-icon"></a>
 
       <div class="row g-4 g-md-3" :class="{ 'align-items-start': product.type !== 'custom' }">
         <div class="col-md-2">
@@ -129,10 +47,9 @@ const openAttributes = (id: string) => {
             <div class="col-md-2">
               <div class="fw-bold me-2 text-center mb-2">Qty</div>
               <div v-if="product.pricefloat > 0" class="d-flex justify-content-between card-quantity-block">
-                <span id="quantity-change"
-                  @click="fetchCart.updateQuantity(product, product.qty - 1)">-</span>
+                <span id="quantity-change" @click="updateQuantity(product,'subtract')">-</span>
                 <span id="quantity-text">{{ product.qty }}</span>
-                <span id="quantity-change" @click="fetchCart.updateQuantity(product, product.qty + 1)">+</span>
+                <span id="quantity-change" @click="updateQuantity(product,'add')">+</span>
               </div>
               <div v-else class="quantity d-grid justify-content-center">
                 <!-- <div v-if="product.pricefloat > 0" class="d-flex">
@@ -308,7 +225,7 @@ const openAttributes = (id: string) => {
                       </p>
                     </div>
                     <div class="gap-3 mt-2 align-items-md-center d-flex flex-wrap" v-if="route.path.includes('cart')">
-                      <a @click="removeFromCart(productId,product)" class="remove-title small"><i
+                      <a @click="removeFromCart(productId, product)" class="remove-title small"><i
                           class="bi bi-trash"></i><span>Remove</span></a>
                     </div>
                   </div>
@@ -434,7 +351,7 @@ const openAttributes = (id: string) => {
               </div>
 
               <!-- Actions -->
-              <div class="d-flex gap-3 align-items-center justify-content-center" v-if="route.path.includes('cart')">
+              <div class="d-flex gap-3 align-items-center justify-content-center">
                 <!-- <a
                   v-if="product.name"
                   :href="`/ezilux_vue/product/${product.slug}/?customize=${productId}&copy=true`"
@@ -449,7 +366,7 @@ const openAttributes = (id: string) => {
                   role="button"
                   >Modify</a
                 > -->
-                <a @click="removeFromCart(productId,product)" class="remove-title">
+                <a @click="removeFromCart(productId, product)" class="remove-title">
                   <i class="bi bi-trash"></i><span>Remove</span>
                 </a>
               </div>

@@ -11,16 +11,17 @@ import { useCartStore } from "@/stores/Cart";
 import { useCategories } from "@/stores/Categories";
 import { defineAsyncComponent } from "vue";
 import { useAuthStore } from '@/stores/AuthStore';
-import Dashboard from '@/views/Customer/Dashboard.vue'; 
-interface Data {
+import Dashboard from '@/views/Customer/Dashboard.vue';
+interface Data { 
   type: string
 }
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/',
+    {
+      path: '/',
       name: 'Shop',
-      meta: {page:'shop' },
+      meta: { page: 'shop' },
       component: () => import('@/views/Shop.vue'),
       beforeEnter: (async (to, from, next) => {
         const Shop = useShopStore()
@@ -30,63 +31,70 @@ const router = createRouter({
         next();
       })
     },
-    { path: '/shop',
+    {
+      path: '/shop',
       name: 'ShopAll',
-      meta: {page:'shop' },
+      meta: { page: 'shop' },
       component: () => import('@/views/ShopAll.vue'),
       beforeEnter: (async (to, from, next) => {
         const Shop = useShopStore()
         await Shop.customProducts({});
         const data = Shop.shop
         to.meta.data = data
-       
+
         next();
       })
-    },    
-    { path: '/customer/:tab?',
+    },
+    {
+      path: '/customer/:tab?',
       name: 'Dashboard',
       component: Dashboard,
-      meta: { requiresAuth: true,page:'dashboard' },
+      meta: { requiresAuth: true, page: 'dashboard' },
       props: route => ({ tab: route.params.tab || 'account' }),
-    },    
-    { path: '/customer/account/login',
-      name: 'Login',      
-      meta: {page:'login' },
-      component: () => import('@/views/Customer/Login.vue') 
     },
-    { path: '/checkout/onepage/success',
+    {
+      path: '/customer/account/login',
+      name: 'Login',
+      meta: { page: 'login' },
+      component: () => import('@/views/Customer/Login.vue')
+    },
+    {
+      path: '/checkout/onepage/success',
       name: 'ThankYou',
-      meta: {page:'thankyou' },
+      meta: { page: 'thankyou' },
       beforeEnter: async (to, from, next) => {
         useCartStore().$reset();
         useCheckoutStore().$reset();
         next()
       },
-      component: () => import('@/views/ThankYou.vue') 
+      component: () => import('@/views/ThankYou.vue')
     },
-    { path: '/customer/account/create',
+    {
+      path: '/customer/account/create',
       name: 'Register',
-      meta: {page:'register' },
-      component: () => import('@/views/Customer/Register.vue') 
+      meta: { page: 'register' },
+      component: () => import('@/views/Customer/Register.vue')
     },
-    { path: '/customer/account/forgotpassword',
+    {
+      path: '/customer/account/forgotpassword',
       name: 'ForgetPassword',
-      meta: {page:'forgotpassword' },
-      component: () => import('@/views/Customer/ForgetPassword.vue') 
+      meta: { page: 'forgotpassword' },
+      component: () => import('@/views/Customer/ForgetPassword.vue')
     },
-    { path: '/product/:slug',
+    {
+      path: '/product/:slug',
       name: 'Product',
-      meta: {page:'product' },
+      meta: { page: 'product' },
       beforeEnter: async (to, from, next) => {
         const slug = to.params.slug;
         let queryData = ''
-        if(to.query && to.query.customize!=''){
+        if (to.query && to.query.customize != '') {
           queryData = to.query;
         }
         const product = useProduct();
-        await product.getProduct(slug,queryData);
+        await product.getProduct(slug, queryData);
         const data: DataType | null = product.data;
-      
+
         if (data) {
           if (data.type === 'simple') {
             to.meta.component = defineAsyncComponent({
@@ -112,7 +120,7 @@ const router = createRouter({
                 }
               },
             });
-          }  else if (data.type === 'bundle') {
+          } else if (data.type === 'bundle') {
             to.meta.component = defineAsyncComponent({
               loader: async () => {
                 try {
@@ -126,7 +134,7 @@ const router = createRouter({
             });
           }
           to.meta.data = data;
-          to.meta.head = {meta_title:data.meta_title?data.meta_title:data.name,meta_description:`${data.meta_description}`,image:data.image};
+          to.meta.head = { meta_title: data.meta_title ? data.meta_title : data.name, meta_description: `${data.meta_description}`, image: data.image };
           next();
         } else {
           next({ name: 'ProductNotFound', params: { pathMatch: to.params.slug } });
@@ -134,9 +142,10 @@ const router = createRouter({
       },
       component: () => import('@/views/Product/Product.vue'),
     },
-    { path: '/sample/:slug',
+    {
+      path: '/sample/:slug',
       name: 'SamplesProduct',
-      meta: {page:'sample' },
+      meta: { page: 'sample' },
       beforeEnter: (async (to, from, next) => {
         const slug = to.params.slug
         const product = useProduct()
@@ -145,7 +154,7 @@ const router = createRouter({
         if (data) {
           to.meta.component = defineAsyncComponent(() => import('@/views/Sample/SingleSampleProduct.vue'))
           to.meta.data = data
-          to.meta.head = {meta_title:data.meta_title?data.meta_title:data.name,meta_description:`${data.meta_description}`,image:data.image};
+          to.meta.head = { meta_title: data.meta_title ? data.meta_title : data.name, meta_description: `${data.meta_description}`, image: data.image };
           next()
         } else {
           next({ name: 'ProductNotFound', params: { pathMatch: to.params.slug } })
@@ -154,9 +163,10 @@ const router = createRouter({
       }),
       component: () => import('@/views/Sample/SingleSampleProduct.vue'),
     },
-    { path: '/samples',
+    {
+      path: '/samples',
       name: 'Samples',
-      meta: {page:'samples' },
+      meta: { page: 'samples' },
       component: () => import('@/views/Sample/Samples.vue'),
       beforeEnter: async (to, from, next) => {
         const sampleProductStore = useSamples();
@@ -171,10 +181,11 @@ const router = createRouter({
         }
       },
     },
-    {  path: '/category/:slug',
-       name: 'Categories',
-       meta: {page:'category' },
-       beforeEnter: (async (to, from, next) => {
+    {
+      path: '/category/:slug',
+      name: 'Categories',
+      meta: { page: 'category' },
+      beforeEnter: (async (to, from, next) => {
         const slug = to.params.slug
         const category = useCategories()
         await category.getCategories(slug);
@@ -182,7 +193,7 @@ const router = createRouter({
         if (data) {
           to.meta.component = defineAsyncComponent(() => import('@/views/Category/Categories.vue'))
           to.meta.data = data
-          to.meta.head = {meta_title:data.category.meta_title?data.category.meta_title:data.category.name,meta_description:`${data.category.meta_description}`,image:data.category.image};
+          to.meta.head = { meta_title: data.category.meta_title ? data.category.meta_title : data.category.name, meta_description: `${data.category.meta_description}`, image: data.category.image };
           next()
         } else {
           next({ name: 'ProductNotFound', params: { pathMatch: to.params.slug } })
@@ -191,9 +202,10 @@ const router = createRouter({
       }),
       component: () => import('@/views/Category/Categories.vue'),
     },
-    { path: '/onestepcheckout',
+    {
+      path: '/onestepcheckout',
       name: 'Checkout',
-      meta: {page:'onestepcheckout' },
+      meta: { page: 'onestepcheckout' },
       component: () => import('@/views/CheckoutPage.vue'),
       beforeEnter: (async (to, from, next) => {
         const Checkout = useCheckoutStore()
@@ -206,15 +218,17 @@ const router = createRouter({
       })
 
     },
-    { path: '/checkout/cart',
+    {
+      path: '/checkout/cart',
       name: 'Cart',
-      meta: {page:'cart' },
+      meta: { page: 'cart' },
       component: () => import('@/views/Cart.vue'),
 
     },
-    { path: '/product/:pathMatch(.*)*',
+    {
+      path: '/product/:pathMatch(.*)*',
       name: 'ProductNotFound',
-      meta: {page:'notfound' },
+      meta: { page: 'notfound' },
       component: () => import('@/views/404.vue'),
     },
 
@@ -238,7 +252,7 @@ router.beforeEach(async (to, from, next) => {
       next();
     }
   } else {
-    next(); 
+    next();
   }
   await Promise.all([
     CompanyProfile.getCompanyProfile(),
@@ -246,145 +260,145 @@ router.beforeEach(async (to, from, next) => {
   ]);
 });
 
-router.afterEach(async(to, from, next) => {
+router.afterEach(async (to, from, next) => {
   let head = {}
-  if(to.meta.head){
+  if (to.meta.head) {
     head = to.meta.head;
-  }else{
+  } else {
     head = usePages().page
   }
   // if(head){
-      document.title = head?.meta_title
-      document.querySelector('meta[name="title"]')?.setAttribute("content",head?.meta_title)
-      document.querySelector('meta[name="description"]')?.setAttribute("content",head?.meta_description)
-      document.querySelector('meta[name="keywords"]')?.setAttribute("content",'')
-      document.querySelector('meta[name="robots"]')?.setAttribute("content",'noindex,nofollow')
-      document.querySelector('meta[property="og:type"]')?.setAttribute("content",'')
-      document.querySelector('meta[property="og:title"]')?.setAttribute("content",head?.meta_title)
-      document.querySelector('meta[property="og:image"]')?.setAttribute("content",head?.image)
-      document.querySelector('meta[property="og:description"]')?.setAttribute("content",head?.meta_description)
-      document.querySelector('meta[property="og:url"]')?.setAttribute("content",window.location.origin+to.fullPath)
-      document.querySelector('link[rel="canonical"')?.setAttribute("content",window.location.origin+to.fullPath)
-      // console.log(to);
-    // }
-  
+  document.title = head?.meta_title
+  document.querySelector('meta[name="title"]')?.setAttribute("content", head?.meta_title)
+  document.querySelector('meta[name="description"]')?.setAttribute("content", head?.meta_description)
+  document.querySelector('meta[name="keywords"]')?.setAttribute("content", '')
+  document.querySelector('meta[name="robots"]')?.setAttribute("content", 'noindex,nofollow')
+  document.querySelector('meta[property="og:type"]')?.setAttribute("content", '')
+  document.querySelector('meta[property="og:title"]')?.setAttribute("content", head?.meta_title)
+  document.querySelector('meta[property="og:image"]')?.setAttribute("content", head?.image)
+  document.querySelector('meta[property="og:description"]')?.setAttribute("content", head?.meta_description)
+  document.querySelector('meta[property="og:url"]')?.setAttribute("content", window.location.origin + to.fullPath)
+  document.querySelector('link[rel="canonical"')?.setAttribute("content", window.location.origin + to.fullPath)
+  // console.log(to);
+  // }
+
   window.dataLayer = window.dataLayer || []
   window.dataLayer.push({
     event: 'virtualPageView',  // Custom event name
     pagePath: to.fullPath,  // The current route path
     pageTitle: document.title // The dynamic title
-  }) 
-  if(to.name=="Product"){
+  })
+  if (to.name == "Product") {
     let data = useProduct().data
-    if(data.length>0){
+    if (data.length > 0) {
       window.dataLayer = window.dataLayer || []
       window.dataLayer.push({
         "event": "view_item",
         "value": data.rrpfloat,
         "currency": "AUD",
         "items": [
-            {
-                "id": data.id,
-                "google_business_vertical": "retail"
-            }
+          {
+            "id": data.id,
+            "google_business_vertical": "retail"
+          }
         ],
         "ecommerce": {
-            "detail": {
-                "actionField": {
-                    "list": data.category
-                },
-                "products": [
-                    {
-                        "id": "9",
-                        "sku": data.name,
-                        "name": data.name,
-                        "price": data.rrpfloat,
-                        "brand": data.brand,
-                        "attribute_set_id": "9",
-                        "attribute_set_name": data.name,
-                        "category":  data.category,
-                        "category_path": data.breadcrumb.category[0]?.slug
-                    }
-                ]
+          "detail": {
+            "actionField": {
+              "list": data.category
             },
-            "items": [
-                {
-                    "item_id": data.id,
-                    "item_name": data.name,
-                    "price": data.rrpfloat,
-                    "item_brand": "Default",
-                    "item_list_name": data.category,
-                    "item_list_id": "",
-                    "item_category": data.category
-                }
+            "products": [
+              {
+                "id": "9",
+                "sku": data.name,
+                "name": data.name,
+                "price": data.rrpfloat,
+                "brand": data.brand,
+                "attribute_set_id": "9",
+                "attribute_set_name": data.name,
+                "category": data.category,
+                "category_path": data.breadcrumb.category[0]?.slug
+              }
             ]
+          },
+          "items": [
+            {
+              "item_id": data.id,
+              "item_name": data.name,
+              "price": data.rrpfloat,
+              "item_brand": "Default",
+              "item_list_name": data.category,
+              "item_list_id": "",
+              "item_category": data.category
+            }
+          ]
         },
         "ga4_event": "view_item"
       })
-    } 
+    }
   }
-  if(to.name=="Cart"){
+  if (to.name == "Cart") {
     const cartItems = useCartStore().cart.items
-      window.dataLayer = window.dataLayer || [];
-      let cartProducts = []
-      for (var key in cartItems) {
-          let item = cartItems[key]
-    
-          cartProducts.push({
-                "id": item.id,
-                "name": item.name,
-                "sku": item.sku,
-                "price": item.pricefloat.toFixed(2),
-                "quantity": item.qty,
-                "attribute_set_id": "",
-                "attribute_set_name": "Default",
-                "brand": "Default",
-                "category": ""
-            })
-          
-        };
-        window.gtag('event', 'begin_checkout', {
-            'items': cartProducts
-          });
-          window.dataLayer.push({
-        event: 'view_item_list',
-        value: 1000,
-        items:[],
-       ecommerce:{
-          "currencyCode":"AUD",
-          "impressions":[],
-          "items":cartProducts
-       },
-       "ga4_event":"begin_checkout"
-      });
-          window.dataLayer.push({
-        "event": "begin_checkout",
-        "ecommerce": {
-            "checkout": {
-                "actionField": {
-                    "step": "1",
-                    "option": "Shopping Cart"
-                },
-                "products": cartProducts
-            }
-        },
-        "gtm.uniqueEventId": 24
-    });
-        console.log(cartProducts)
-       
-        window.dataLayer.push({
-        "event": "checkout",
-        "ecommerce": {
-            "checkout": {
-                "actionField": {
-                    "step": "1",
-                    "option": "Shopping Cart"
-                },
-                "products": cartProducts
-            }
-        },
-        "gtm.uniqueEventId": 24
-    });
+    window.dataLayer = window.dataLayer || [];
+    let cartProducts = []
+    for (var key in cartItems) {
+      let item = cartItems[key]
+
+      cartProducts.push({
+        "id": item.id,
+        "name": item.name,
+        "sku": item.sku,
+        "price": item.pricefloat.toFixed(2),
+        "quantity": item.qty,
+        "attribute_set_id": "",
+        "attribute_set_name": "Default",
+        "brand": "Default",
+        "category": ""
+      })
+
+    };
+    // window.gtag('event', 'begin_checkout', {
+    //   'items': cartProducts
+    // });
+    // window.dataLayer.push({
+    //   event: 'view_item_list',
+    //   value: 1000,
+    //   items: [],
+    //   ecommerce: {
+    //     "currencyCode": "AUD",
+    //     "impressions": [],
+    //     "items": cartProducts
+    //   },
+    //   "ga4_event": "begin_checkout"
+    // });
+    // window.dataLayer.push({
+    //   "event": "begin_checkout",
+    //   "ecommerce": {
+    //     "checkout": {
+    //       "actionField": {
+    //         "step": "1",
+    //         "option": "Shopping Cart"
+    //       },
+    //       "products": cartProducts
+    //     }
+    //   },
+    //   "gtm.uniqueEventId": 24
+    // });
+    // console.log(cartProducts)
+
+    // window.dataLayer.push({
+    //   "event": "checkout",
+    //   "ecommerce": {
+    //     "checkout": {
+    //       "actionField": {
+    //         "step": "1",
+    //         "option": "Shopping Cart"
+    //       },
+    //       "products": cartProducts
+    //     }
+    //   },
+    //   "gtm.uniqueEventId": 24
+    // });
   }
 });
 export default router

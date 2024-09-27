@@ -2,9 +2,9 @@
 import { useProduct } from '@/stores/product';
 import { computed } from 'vue';
 import { useRouter } from 'vue-router'; 
-import ProductVariation from '@/components/SimpleProduct/ProductVariation.vue';
-import Gallery from '@/components/Product/Gallery.vue';
-import AddToCard from '@/components/SimpleProduct/AddToCart.vue';
+import ProductVariation from '@/components/01/SimpleProduct/ProductVariation.vue';
+import Gallery from '@/components/01/Product/Gallery.vue';
+import AddToCard from '@/components/01/SimpleProduct/AddToCart.vue';
 
 const productStore = useProduct();
 

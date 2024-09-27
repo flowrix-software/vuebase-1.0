@@ -5,7 +5,7 @@ const checkoutStore = useCheckoutStore()
 
 interface ShippingDetails {
     billing_state: number | undefined,
-    deliverymethod: number | undefined,
+    deliverymethod: number | string,
     billing_address: string,
     billing_suburb: string | undefined,
     billing_postcode: number | undefined,
@@ -35,6 +35,8 @@ interface ShippingDetails {
     till_cvn: string,
     till_expirymonth: string,
     till_expiryyear: string,
+    firstname: string,
+    lastname: string,
     save_card_details: number
 }
 
