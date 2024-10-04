@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'https://iseekblinds.dev.flowrix.app/api/v1/'
-const API_KEY = 'b70dce54-429c-485f-8fc0-192470337735'
-const API_SECRET = '3Gp9dkbANPWkLg5nsutDheH1WVmrzqlcnVJNk0PDrptx3xIWtyib9hcRr66zH84NRwUdHACTGSZo9Z8sA1eJm0zsCI34OrLeSobUEKhMqfgB7YWClRO5ZHLTE6R81k5zwIHSTtX7yXuqz3MGfjbLGZK7SVS4dwS58xiljtx9TloCIQISOsoIUE7VWu87mwsJqjrMxzpmPlXML6DSc7w5c7xHDpdYaQrQzNjlZkq5sILEDHlHSXSi6OeRZuSYD5uI'
+const API_BASE_URL = process.env.FLOWRIX_API_BASE_URL;
+const API_KEY = process.env.FLOWRIX_API_KEY;
+const API_SECRET = process.env.FLOWRIX_API_SECRET;
 
 // const API_BASE_URL = 'https://iseekblinds.flowrix.app/api/v1/'
 // const API_KEY = '940d5360-56b6-42c3-810b-3186d1ebe3cc'
