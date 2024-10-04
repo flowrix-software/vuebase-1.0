@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../axios/axios-instance' // Adjust the import path accordingly
 
-interface CountryData {
+type CountryData= {
     countries: any[];
     errorResponseData: any[];
 }

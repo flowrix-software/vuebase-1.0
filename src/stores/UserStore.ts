@@ -2,13 +2,13 @@ import { defineStore } from 'pinia';
 import axiosInstance from '../axios/axios-instance';
 
 
-interface UserProfile {
+type UserProfile= {
   access_token: string;
   isAuthenticated: boolean;
   user: any;
 }
 
-interface UserState {
+type UserState= {
   user: UserProfile | null;
   countries: any[];
   order_history: any[];

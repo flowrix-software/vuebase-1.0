@@ -160,7 +160,7 @@
 
                     <p class="fw-bold mt-3 mb-1">Options</p>
                     <div class="options-gid">
-                      <div v-for="colum in dvidedsummary(product.options.summary)">
+                      <div v-for="colum in dividedSummary(product.options.summary)">
                         <div class="row w-100" v-for="(item, index) in colum" :key="index">
                           <div class="col text-wrap-custom">
                             <b :title="item.name" class="key mb-0 text-sm">{{ item.name }}:</b>

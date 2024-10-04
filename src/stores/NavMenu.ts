@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../axios/axios-instance.js'
-interface NavMenuState {
+type NavMenuState= {
     Menu: { location: string, items: MenuItem[] }[] // Array to hold location and items
 }
 
-interface MenuItem {
+type MenuItem= {
     title: string
     url: string
     sortorder: number

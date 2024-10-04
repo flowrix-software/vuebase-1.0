@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../axios/axios-instance.js'
-interface CompanyProfile {
+type CompanyProfile= {
   logo: string;
   currencyprefix: string
   currencypostfix: string

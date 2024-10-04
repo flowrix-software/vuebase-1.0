@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axiosInstance from '../axios/axios-instance' // Adjust the import path accordingly
 import { useCartStore } from '@/stores/Cart.js'
 
-interface PreferenceData {
+type PreferenceData= {
     fields?: Record<string, any>;
     preferences?: Record<string, any>[];
     outlets?: Record<string, any>[];
@@ -13,11 +13,11 @@ interface PreferenceData {
     [key: string]: any;
 }
 
-interface ConfigData {
+type ConfigData= {
     cart: object
 }
 
-interface fieldData {
+type fieldData= {
     billing_state: number | undefined,
     billing_firstname: string | number;
     firstname: string | number;
@@ -35,7 +35,7 @@ interface fieldData {
     customernotes: string,
 
 }
-interface CheckoutState {
+type CheckoutState= {
     publishableKey: Record<string, any>;
     responseData: any[];
     checkoutSession: PreferenceData;

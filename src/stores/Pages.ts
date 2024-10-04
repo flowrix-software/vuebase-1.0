@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
 import axiosInstance from '../axios/axios-instance.js';
 
-interface Pages {
+type Pages= {
     name: string;
 }
 
-interface State {
+type State= {
     error: string | null;
     page: Pages | null;
 }

@@ -11,8 +11,15 @@ export { useSamples } from "./src/stores/Samples";
 export { useShopStore } from "./src/stores/ShopStore";
 export { useSubscription } from "./src/stores/Subscription";
 export { useUserStore } from "./src/stores/Userstore";
+export { useCustomScript } from "./src/stores/CustomScripts/CustomeScript";
 
 //Templates
-// index.ts
 export { default as CartDetail } from './src/template/Cart/CartDetail';
 export { default as CartTotalAndPromo } from './src/template/Cart/CartTotalAndPromo';
+// export { default as CreateAccount } from './src/template/Checkout/CreateAccount';
+// export { default as DeliveryMethod } from './src/template/Checkout/DeliveryMethod';
+// export { default as MainView } from './src/template/Checkout/MainView';
+// export { default as ShippingAddress } from './src/template/Checkout/ShippingAddress';
+// export { default as SignInForm } from './src/template/Checkout/SignInForm';
+// export { default as Login } from './src/template/Customer/Auth/Login';
+// export { default as Register } from './src/template/Customer/Auth/Register';

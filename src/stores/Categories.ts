@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia';
 import axiosInstance from '../axios/axios-instance.js';
 
-interface CategoryState {
+type CategoryState= {
   data: Record<string, any>;
   currentPage: number;
   slug: string | null;

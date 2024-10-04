@@ -1,7 +1,6 @@
 import { computed, ref, defineComponent } from 'vue'
 import { useCartStore } from '@/stores/Cart'
 
-const fetchCart = useCartStore() as ErrorResponse
 interface errorResponseData {
     message: string
 }
@@ -24,6 +23,7 @@ interface ErrorResponse {
 export default defineComponent({
     name: 'CartTotalAndPromo',
     setup() {
+        const fetchCart = useCartStore() as ErrorResponse
         const coupon = ref<string>('')
         const couponCodes = ref<string[]>([])
 

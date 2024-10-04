@@ -1,6 +1,7 @@
 import { computed, defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import { useCartStore } from '@/stores/Cart';
+import { Icon } from '@iconify/vue';
 
 type CartItem = {
   id: string;
@@ -10,11 +11,11 @@ type CartItem = {
   options?: { values: Record<string, unknown> };
 };
 
-interface ProductData{
+type ProductData={
   qty:number
 }
 // Vue component export
-export default defineComponent({
+export default{
   name: 'CartDetail',
   setup() {
     // Initialize route and cart store
@@ -67,7 +68,7 @@ export default defineComponent({
     });
 
     // Function to divide summary data into three parts
-    const dividedSummary = (summaryData: any[]) => {
+    const dvidedsummary = (summaryData: any[]) => {
       let summary = [];
       let firstMidpoint = Math.ceil(summaryData.length / 3);
       let secondMidpoint = Math.ceil((summaryData.length * 2) / 3);
@@ -119,9 +120,10 @@ export default defineComponent({
       removeFromCart,
       updateQuantity,
       isObjectEmpty,
-      dividedSummary,
+      dvidedsummary,
       openBundle,
       openAttributes,
+      Icon,
     };
   },
-});
+};

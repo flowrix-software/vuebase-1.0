@@ -3,7 +3,7 @@
 import { defineStore } from 'pinia';
 import axiosInstance from '@/axios/axios-instance'; // Adjust the path if necessary
 
-interface SubscriptionState {
+type SubscriptionState= {
   responseData: any[];
   errorResponseData: any[];
 }

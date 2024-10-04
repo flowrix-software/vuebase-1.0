@@ -2,19 +2,19 @@ import { defineStore } from 'pinia'
 import axiosInstance from '../axios/axios-instance.js'
 import { useCheckoutStore } from '@/stores/Checkout.js'
 
-interface CouponData {
+type CouponData= {
     remove?: number,
     code: string
 }
 
-interface ApplyCoupon {
+type ApplyCoupon= {
     cart: string,
     vouchercodes: string[],
     fields: string,
     code: string,
 }
 
-interface CartData {
+type CartData= {
     rowId: string,
     cart: object,
     qty?: number,
@@ -22,14 +22,14 @@ interface CartData {
     // deliverymethod: number
 }
 
-interface FormData {
+type FormData= {
     cart: object | undefined,
     qty: number,
     data?: object,
     abndToken?: string
 }
 
-interface CartState {
+type CartState= {
     cart: Record<string, any>
     activeService: []
     coupon: string[]

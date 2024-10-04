@@ -3,11 +3,11 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '../axios/axios-instance.js' // Adjust the import path accordingly
 import { ref } from 'vue'
-interface User {
+type User= {
     email: string,
     password: string,
 }
-interface Data {
+type Data= {
     access_token: string,
     user: object,
 }
