@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const API_BASE_URL = process.env.FLOWRIX_API_BASE_URL;
-const API_KEY = process.env.FLOWRIX_API_KEY;
-const API_SECRET = process.env.FLOWRIX_API_SECRET;
+const API_BASE_URL = import.meta.env.VITE_FLOWRIX_API_BASE_URL;
+const API_KEY = import.meta.env.VITE_FLOWRIX_API_KEY;
+const API_SECRET = import.meta.env.VITE_FLOWRIX_API_SECRET;
 
 // const API_BASE_URL = 'https://iseekblinds.flowrix.app/api/v1/'
 // const API_KEY = '940d5360-56b6-42c3-810b-3186d1ebe3cc'
