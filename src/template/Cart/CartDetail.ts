@@ -14,7 +14,7 @@ interface ProductData{
   qty:number
 }
 // Vue component export
-export default{
+export default defineComponent({
   name: 'CartDetail',
   setup() {
     // Initialize route and cart store
@@ -124,4 +124,4 @@ export default{
       openAttributes,
     };
   },
-};
+});

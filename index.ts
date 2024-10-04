@@ -11,3 +11,8 @@ export { useSamples } from "./src/stores/Samples";
 export { useShopStore } from "./src/stores/ShopStore";
 export { useSubscription } from "./src/stores/Subscription";
 export { useUserStore } from "./src/stores/Userstore";
+
+//Templates
+// index.ts
+export { default as CartDetail } from './src/template/Cart/CartDetail';
+export { default as CartTotalAndPromo } from './src/template/Cart/CartTotalAndPromo';
