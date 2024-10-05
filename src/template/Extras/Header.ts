@@ -1,11 +1,11 @@
 import { computed, defineComponent, ref } from "vue";
-import { useCompanyProfile } from "vuebase-1.0";
+import { useCompanyProfile } from "@/stores/CompanyProfile";
 import { Icon } from "@iconify/vue";
-import { useNavMenu } from "vuebase-1.0";
+import { useNavMenu } from "@/stores/NavMenu";
 import Menu from "@/components/Menu/MainMenu.vue";
-import { useAuthStore } from "vuebase-1.0";
-import { useUserStore } from "vuebase-1.0";
-import { useCartStore } from "vuebase-1.0";
+import { useAuthStore } from "@/stores/AuthStore";
+import { useUserStore } from "@/stores/UserStore";
+import { useCartStore } from "@/stores/Cart";
 type Menu= {
   location: string;
   items: any;
