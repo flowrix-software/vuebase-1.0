@@ -10,7 +10,7 @@ export { useProduct } from "./src/stores/product";
 export { useSamples } from "./src/stores/Samples";
 export { useShopStore } from "./src/stores/ShopStore";
 export { useSubscription } from "./src/stores/Subscription";
-export { useUserStore } from "./src/stores/Userstore";
+export { useUserStore } from "./src/stores/UserStore";
 export { useCustomScript } from "./src/stores/CustomScripts/CustomeScript";
 
 //Templates
