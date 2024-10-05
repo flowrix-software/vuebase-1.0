@@ -1,6 +1,6 @@
 import { computed, defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
-import { useCartStore } from 'vuebase-1.0';
+import { useCartStore } from '@/stores/Cart';
 import { Icon } from '@iconify/vue';
 
 type CartItem = {
