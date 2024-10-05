@@ -1,16 +1,17 @@
-import { computed, ref, defineComponent } from 'vue'
+import { computed, ref } from 'vue'
 import { useCartStore } from '@/stores/Cart'
 
-interface errorResponseData {
+const fetchCart = useCartStore() as ErrorResponse
+type errorResponseData= {
     message: string
 }
 
-interface ApplyCouponArgs {
+type ApplyCouponArgs= {
     code: string;
     remove?: number; // Optional parameter 'remove'
 }
 
-interface ErrorResponse {
+type ErrorResponse= {
     ApplyCoupon(args: ApplyCouponArgs): any;
     // interface CartState {
     cart: Record<string, any>
@@ -20,10 +21,9 @@ interface ErrorResponse {
     responseData: []
     errorResponseData: errorResponseData
 }
-export default defineComponent({
+export default {
     name: 'CartTotalAndPromo',
     setup() {
-        const fetchCart = useCartStore() as ErrorResponse
         const coupon = ref<string>('')
         const couponCodes = ref<string[]>([])
 
@@ -69,4 +69,4 @@ export default defineComponent({
             fetchCart
         };
     },
-});
+};
